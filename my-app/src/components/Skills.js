@@ -91,18 +91,23 @@ function Skills({ supabase, user }) {
       <div className="detail" style={{ marginTop: 0 }}>
         <InteractiveBackground />
         <div className="page-content-container">
-          <div className="skeleton skeleton-title" style={{width: '200px', height: '3rem', marginBottom: '1rem'}}></div>
-          <div className="skeleton skeleton-tagline" style={{width: '300px', height: '1.5rem', marginBottom: '2rem'}}></div>
           
           <div className="skills-layout-container">
             <div className="skills-info-left">
-              <div className="skeleton" style={{ width: '100%', height: '200px', borderRadius: '24px' }}></div>
+              <div className="skeleton skeleton-info-card"></div>
             </div>
             <div className="skills-content-right">
-              <div className="skeleton" style={{ width: '100%', height: '3rem', borderRadius: '12px', marginBottom: '2rem' }}></div>
-              <div className="skills-grid-premium">
+              {/* Filter Skeleton */}
+              <div className="skills-filter-bar" style={{border: 'none', background: 'transparent', boxShadow: 'none', padding: 0}}>
+                 {[1, 2, 3, 4].map(i => (
+                    <div key={i} className="skeleton" style={{width: '80px', height: '40px', borderRadius: '12px', display: 'inline-block', marginRight: '1rem'}}></div>
+                 ))}
+              </div>
+
+              {/* Grid Skeleton */}
+              <div className="skills-grid-premium" style={{marginTop: '2rem'}}>
                 {[1, 2, 3, 4, 5, 6].map(i => (
-                  <div key={i} className="skeleton" style={{ height: '120px', borderRadius: '16px' }}></div>
+                  <div key={i} className="skeleton skeleton-skill-grid-item"></div>
                 ))}
               </div>
             </div>
@@ -118,8 +123,6 @@ function Skills({ supabase, user }) {
       
       {/* Added page-content-container wrapper */}
       <div className="page-content-container">
-        <h1 className="glitch-text" data-text={t.skillsTitle}>{t.skillsTitle}</h1>
-        <p className="tagline">{t.skillsTagline}</p>
         <div className="skills-layout-container">
           {/* Left Side - Text Content */}
           <div className="skills-info-left animate-fade-in">

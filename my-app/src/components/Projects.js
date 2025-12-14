@@ -110,25 +110,38 @@ function Projects({ supabase, user }) {
         <InteractiveBackground />
         <div className="page-content-container">
           <div className="skeleton skeleton-title" style={{width: '200px', height: '2.5rem', marginBottom: '1rem'}}></div>
-          <div className="skeleton skeleton-tagline" style={{width: '300px', height: '1.5rem', marginBottom: '2rem'}}></div>
           
           <div className="projects-terminal-container">
-            <div className="projects-terminal loading-state">
-              <div className="terminal-header-bar">
+            <div className="skeleton-terminal">
+              
+              {/* Fake Header */}
+              <div className="skeleton-terminal-header">
                 <div className="terminal-controls">
                   <div className="control red"></div>
                   <div className="control yellow"></div>
                   <div className="control green"></div>
                 </div>
-                <div className="terminal-title-bar">LOADING_SYSTEM_DATA...</div>
               </div>
-              <div className="terminal-body">
-                <div className="loading-matrix">
-                  {[...Array(10)].map((_, i) => (
-                    <div key={i} className="matrix-line skeleton-text" style={{width: `${Math.random() * 50 + 50}%`, opacity: 1 - (i * 0.1)}}></div>
+
+              {/* Body */}
+              <div className="skeleton-terminal-body">
+                <div className="skeleton-terminal-left">
+                  {[1, 2, 3, 4, 5].map(i => (
+                     <div key={i} className="skeleton skeleton-text" style={{width: '80%', height: '1.5rem', marginBottom: '1rem', opacity: 1 - (i * 0.15)}}></div>
                   ))}
                 </div>
+                <div className="skeleton-terminal-right">
+                   <div className="skeleton skeleton-text" style={{width: '40%', height: '1.5rem', marginBottom: '1.5rem'}}></div>
+                   <div className="skeleton skeleton-text" style={{width: '30%', height: '1rem', marginBottom: '0.5rem'}}></div>
+                   <div className="skeleton skeleton-text" style={{width: '90%', height: '1rem', marginBottom: '0.5rem'}}></div>
+                   <div className="skeleton skeleton-text" style={{width: '95%', height: '1rem', marginBottom: '0.5rem'}}></div>
+                   <div className="skeleton skeleton-text" style={{width: '85%', height: '1rem', marginBottom: '2rem'}}></div>
+                   
+                   <div className="skeleton skeleton-text" style={{width: '20%', height: '1rem', marginBottom: '0.5rem'}}></div>
+                   <div className="skeleton skeleton-text" style={{width: '60%', height: '2.5rem', marginBottom: '1rem', borderRadius: '4px'}}></div>
+                </div>
               </div>
+
             </div>
           </div>
         </div>
@@ -144,7 +157,6 @@ function Projects({ supabase, user }) {
       
       {/* Added page-content-container wrapper */}
       <div className="page-content-container">
-        <h1 className="glitch-text" data-text={t.projectsTitle}>{t.projectsTitle}</h1>
         
         <div className="projects-terminal-container">
           <div className="projects-terminal">

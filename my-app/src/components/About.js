@@ -62,19 +62,18 @@ function About({ supabase, user }) {
             <div className="profile-panel">
               <div className="profile-card">
                 <div className="profile-image-container">
-                  <div className="skeleton skeleton-circle-large" style={{width: '100%', height: '100%'}}></div>
+                  <div className="skeleton skeleton-circle-large" style={{width: '200px', height: '200px', margin: '0 auto'}}></div>
                 </div>
-                <div className="skeleton skeleton-title" style={{width: '60%', height: '2rem', margin: '0 auto 0.5rem'}}></div>
-                <div className="skeleton skeleton-text" style={{width: '40%', height: '1rem', margin: '0 auto 2rem'}}></div>
+                <div className="skeleton skeleton-title" style={{width: '70%', height: '2rem', margin: '1rem auto 0.5rem'}}></div>
+                <div className="skeleton skeleton-text" style={{width: '50%', height: '1rem', margin: '0 auto 2rem'}}></div>
                 
                 <div className="profile-actions" style={{marginBottom: '2rem'}}>
-                  <div className="skeleton skeleton-button" style={{width: '100%', height: '3rem'}}></div>
+                  <div className="skeleton skeleton-button" style={{width: '100%', height: '3rem', borderRadius: '50px'}}></div>
                 </div>
 
-                <div className="profile-social" style={{justifyContent: 'center'}}>
-                  <div className="skeleton skeleton-circle-small" style={{width: '40px', height: '40px', margin: '0 0.5rem'}}></div>
-                  <div className="skeleton skeleton-circle-small" style={{width: '40px', height: '40px', margin: '0 0.5rem'}}></div>
-                  <div className="skeleton skeleton-circle-small" style={{width: '40px', height: '40px', margin: '0 0.5rem'}}></div>
+                <div className="profile-social" style={{justifyContent: 'center', gap: '1rem'}}>
+                  <div className="skeleton skeleton-circle-small" style={{width: '40px', height: '40px'}}></div>
+                  <div className="skeleton skeleton-circle-small" style={{width: '40px', height: '40px'}}></div>
                 </div>
               </div>
             </div>

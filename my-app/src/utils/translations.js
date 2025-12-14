@@ -9,7 +9,7 @@ export const translations = {
     contact: 'Contact',
     
     // Home
-    welcome: 'Bonjour, je suis',
+    welcome: 'Bonjour',
     tagline: 'Développeur Web & Résolveur de Problèmes Créatif',
     downloadCv: 'Télécharger CV',
     
@@ -135,7 +135,7 @@ export const translations = {
     contact: 'Contact',
     
     // Home
-    welcome: "Hi, I'm",
+    welcome: "Hi",
     tagline: 'Web Developer & Creative Problem Solver',
     downloadCv: 'Download CV',
     
