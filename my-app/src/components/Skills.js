@@ -19,8 +19,6 @@ const iconComponents = {
   SiTypescript, SiTailwindcss, SiFigma
 };
 
-
-
 function Skills({ supabase, user }) {
   const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -92,20 +90,22 @@ function Skills({ supabase, user }) {
     return (
       <div className="detail" style={{ marginTop: 0 }}>
         <InteractiveBackground />
-        <div className="skeleton skeleton-title" style={{width: '200px', height: '3rem', marginBottom: '1rem'}}></div>
-        <div className="skeleton skeleton-tagline" style={{width: '300px', height: '1.5rem', marginBottom: '2rem'}}></div>
-        
-        <div className="skills-layout-container">
-          <div className="skills-info-left">
-            <div className="skeleton" style={{ width: '100%', height: '200px', borderRadius: '24px' }}></div>
-          </div>
-          <div className="skills-content-right">
-             <div className="skeleton" style={{ width: '100%', height: '3rem', borderRadius: '12px', marginBottom: '2rem' }}></div>
-             <div className="skills-grid">
-               {[1, 2, 3, 4, 5, 6].map(i => (
-                 <div key={i} className="skeleton" style={{ height: '120px', borderRadius: '16px' }}></div>
-               ))}
-             </div>
+        <div className="page-content-container">
+          <div className="skeleton skeleton-title" style={{width: '200px', height: '3rem', marginBottom: '1rem'}}></div>
+          <div className="skeleton skeleton-tagline" style={{width: '300px', height: '1.5rem', marginBottom: '2rem'}}></div>
+          
+          <div className="skills-layout-container">
+            <div className="skills-info-left">
+              <div className="skeleton" style={{ width: '100%', height: '200px', borderRadius: '24px' }}></div>
+            </div>
+            <div className="skills-content-right">
+              <div className="skeleton" style={{ width: '100%', height: '3rem', borderRadius: '12px', marginBottom: '2rem' }}></div>
+              <div className="skills-grid-premium">
+                {[1, 2, 3, 4, 5, 6].map(i => (
+                  <div key={i} className="skeleton" style={{ height: '120px', borderRadius: '16px' }}></div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -115,103 +115,107 @@ function Skills({ supabase, user }) {
   return (
     <div className="detail skills-page" style={{ marginTop: 0 }}>
       <InteractiveBackground />
-      <h1 className="animate-slide-up">{t.skillsTitle}</h1>
-      <p className="tagline animate-slide-up">{t.skillsTagline}</p>
-      <div className="skills-layout-container">
-        {/* Left Side - Text Content */}
-        <div className="skills-info-left animate-fade-in">
-          <div className="info-card glass-panel">
-            <h2 className="info-title">{currentDescription.title}</h2>
-            <p className="info-description">{currentDescription.description}</p>
-            
-            <div className="tech-badges">
-               {activeCategory === 'All' ? (
-                 <>
-                   <span className="tech-badge">Frontend</span>
-                   <span className="tech-badge">Backend</span>
-                   <span className="tech-badge">DevOps</span>
-                 </>
-               ) : (
-                 <span className="tech-badge">{activeCategory}</span>
-               )}
+      
+      {/* Added page-content-container wrapper */}
+      <div className="page-content-container">
+        <h1 className="glitch-text" data-text={t.skillsTitle}>{t.skillsTitle}</h1>
+        <p className="tagline">{t.skillsTagline}</p>
+        <div className="skills-layout-container">
+          {/* Left Side - Text Content */}
+          <div className="skills-info-left animate-fade-in">
+            <div className="info-card glass-panel">
+              <h2 className="info-title">{currentDescription.title}</h2>
+              <p className="info-description">{currentDescription.description}</p>
+              
+              <div className="tech-badges">
+                {activeCategory === 'All' ? (
+                  <>
+                    <span className="tech-badge">Frontend</span>
+                    <span className="tech-badge">Backend</span>
+                    <span className="tech-badge">DevOps</span>
+                  </>
+                ) : (
+                  <span className="tech-badge">{activeCategory}</span>
+                )}
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Right Side - Skills Grid */}
-        <div className="skills-content-right">
-          {/* Category Filter */}
-          <div className="skills-filter-bar animate-slide-left">
-            {categories.map((category) => (
-              <button
-                key={category}
-                className={`filter-btn ${activeCategory === category ? 'active' : ''}`}
-                onClick={() => setActiveCategory(category)}
-              >
-                {category !== 'All' && <span className="btn-icon">{getCategoryIcon(category)}</span>}
-                {category}
-              </button>
-            ))}
-          </div>
-
-          {/* Skills Grid */}
-          <div className="skills-grid-premium">
-            {filteredSkills.map((skill, index) => {
-              const IconComponent = getIconComponent(skill.icon_name);
-              const percentage = skill.level * 10;
-              
-              return (
-                <div 
-                  key={skill.id}
-                  className="skill-card-premium"
-                  style={{ 
-                    animationDelay: `${index * 0.05}s` 
-                  }}
+          {/* Right Side - Skills Grid */}
+          <div className="skills-content-right">
+            {/* Category Filter */}
+            <div className="skills-filter-bar animate-slide-left">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  className={`filter-btn ${activeCategory === category ? 'active' : ''}`}
+                  onClick={() => setActiveCategory(category)}
                 >
-                  <div className="card-bg-glow" style={{ background: skill.color || 'var(--color-primary)' }}></div>
-                  
-                  <div className="skill-icon-wrapper">
-                    <div className="skill-icon-floating" style={{ color: skill.color || 'var(--black)' }}>
-                      <IconComponent />
-                    </div>
-                  </div>
-                  
-                  <div className="skill-details">
-                    <div className="skill-header-premium">
-                      <h3 className="skill-name">{skill.name}</h3>
-                      <span className="skill-badge" style={{ 
-                        borderColor: getLevelColor(skill.level),
-                        color: getLevelColor(skill.level)
-                      }}>
-                        {getLevelLabel(skill.level)}
-                      </span>
+                  {category !== 'All' && <span className="btn-icon">{getCategoryIcon(category)}</span>}
+                  {category}
+                </button>
+              ))}
+            </div>
+
+            {/* Skills Grid */}
+            <div className="skills-grid-premium">
+              {filteredSkills.map((skill, index) => {
+                const IconComponent = getIconComponent(skill.icon_name);
+                const percentage = skill.level * 10;
+                
+                return (
+                  <div 
+                    key={skill.id}
+                    className="skill-card-premium"
+                    style={{ 
+                      animationDelay: `${index * 0.05}s` 
+                    }}
+                  >
+                    <div className="card-bg-glow" style={{ background: skill.color || 'var(--color-primary)' }}></div>
+                    
+                    <div className="skill-icon-wrapper">
+                      <div className="skill-icon-floating" style={{ color: skill.color || 'var(--black)' }}>
+                        <IconComponent />
+                      </div>
                     </div>
                     
-                    <div className="skill-progress-container">
-                      <div className="progress-bar-premium">
-                        <div 
-                          className="progress-fill-premium"
-                          style={{ 
-                            width: `${percentage}%`,
-                            background: skill.color || 'var(--color-primary)'
-                          }}
-                        >
-                          <div className="progress-glow" style={{ background: skill.color || 'var(--color-primary)' }}></div>
-                        </div>
+                    <div className="skill-details">
+                      <div className="skill-header-premium">
+                        <h3 className="skill-name">{skill.name}</h3>
+                        <span className="skill-badge" style={{ 
+                          borderColor: getLevelColor(skill.level),
+                          color: getLevelColor(skill.level)
+                        }}>
+                          {getLevelLabel(skill.level)}
+                        </span>
                       </div>
-                      <span className="percentage-text">{percentage}%</span>
+                      
+                      <div className="skill-progress-container">
+                        <div className="progress-bar-premium">
+                          <div 
+                            className="progress-fill-premium"
+                            style={{ 
+                              width: `${percentage}%`,
+                              background: skill.color || 'var(--color-primary)'
+                            }}
+                          >
+                            <div className="progress-glow" style={{ background: skill.color || 'var(--color-primary)' }}></div>
+                          </div>
+                        </div>
+                        <span className="percentage-text">{percentage}%</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-          
-          {filteredSkills.length === 0 && (
-            <div className="no-skills-found">
-              <p>No skills found in this category.</p>
+                );
+              })}
             </div>
-          )}
+            
+            {filteredSkills.length === 0 && (
+              <div className="no-skills-found">
+                <p>No skills found in this category.</p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -210,7 +210,7 @@ header {
   top: 20px;
   z-index: 100;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  width: 80%;
+  width: 85%;
   height: 70px;
   max-width: 95%;
   margin: 0 auto;
@@ -851,10 +851,10 @@ nav li a.active {
 }
 .skills-layout-container {
   display: grid;
-  grid-template-columns: 400px 1fr;
+  grid-template-columns: 40% 60%;
   gap: 2rem;
   align-items: start;
-  max-width: 1400px;
+  max-width: 90%;
 }
 
 .skills-info-left {
@@ -2487,7 +2487,7 @@ nav ul {
   display: grid;
   grid-template-columns: 350px 1fr;
   gap: 2rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
   min-height: 600px;
 }
 .profile-panel {
@@ -3705,16 +3705,17 @@ nav ul {
   position: sticky;
   top: 100px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
   margin-bottom: 2.5rem;
-  padding: 12px;
+  padding: 10px;
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10px);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  width: fit-content;
+  width: 112%;
   box-shadow: 0 10px 20px var(--shadow-hover);
+  z-index: 100;
 }
 
 .filter-btn {

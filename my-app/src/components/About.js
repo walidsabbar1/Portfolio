@@ -56,49 +56,51 @@ function About({ supabase, user }) {
       <div className="detail" style={{ marginTop: 0 }}>
         <InteractiveBackground />
         
-        <div className="about-dashboard">
-          {/* Left Panel: Profile Skeleton */}
-          <div className="profile-panel">
-            <div className="profile-card">
-              <div className="profile-image-container">
-                <div className="skeleton skeleton-circle-large" style={{width: '100%', height: '100%'}}></div>
-              </div>
-              <div className="skeleton skeleton-title" style={{width: '60%', height: '2rem', margin: '0 auto 0.5rem'}}></div>
-              <div className="skeleton skeleton-text" style={{width: '40%', height: '1rem', margin: '0 auto 2rem'}}></div>
-              
-              <div className="profile-actions" style={{marginBottom: '2rem'}}>
-                <div className="skeleton skeleton-button" style={{width: '100%', height: '3rem'}}></div>
-              </div>
+        <div className="page-content-container">
+          <div className="about-dashboard">
+            {/* Left Panel: Profile Skeleton */}
+            <div className="profile-panel">
+              <div className="profile-card">
+                <div className="profile-image-container">
+                  <div className="skeleton skeleton-circle-large" style={{width: '100%', height: '100%'}}></div>
+                </div>
+                <div className="skeleton skeleton-title" style={{width: '60%', height: '2rem', margin: '0 auto 0.5rem'}}></div>
+                <div className="skeleton skeleton-text" style={{width: '40%', height: '1rem', margin: '0 auto 2rem'}}></div>
+                
+                <div className="profile-actions" style={{marginBottom: '2rem'}}>
+                  <div className="skeleton skeleton-button" style={{width: '100%', height: '3rem'}}></div>
+                </div>
 
-              <div className="profile-social" style={{justifyContent: 'center'}}>
-                <div className="skeleton skeleton-circle-small" style={{width: '40px', height: '40px', margin: '0 0.5rem'}}></div>
-                <div className="skeleton skeleton-circle-small" style={{width: '40px', height: '40px', margin: '0 0.5rem'}}></div>
-                <div className="skeleton skeleton-circle-small" style={{width: '40px', height: '40px', margin: '0 0.5rem'}}></div>
+                <div className="profile-social" style={{justifyContent: 'center'}}>
+                  <div className="skeleton skeleton-circle-small" style={{width: '40px', height: '40px', margin: '0 0.5rem'}}></div>
+                  <div className="skeleton skeleton-circle-small" style={{width: '40px', height: '40px', margin: '0 0.5rem'}}></div>
+                  <div className="skeleton skeleton-circle-small" style={{width: '40px', height: '40px', margin: '0 0.5rem'}}></div>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Right Panel: Content Skeleton */}
-          <div className="content-panel">
-            <div className="dashboard-tabs" style={{marginBottom: '2rem'}}>
-              <div className="skeleton skeleton-button" style={{width: '120px', height: '40px'}}></div>
-              <div className="skeleton skeleton-button" style={{width: '120px', height: '40px'}}></div>
-              <div className="skeleton skeleton-button" style={{width: '120px', height: '40px'}}></div>
-            </div>
+            {/* Right Panel: Content Skeleton */}
+            <div className="content-panel">
+              <div className="dashboard-tabs" style={{marginBottom: '2rem'}}>
+                <div className="skeleton skeleton-button" style={{width: '120px', height: '40px'}}></div>
+                <div className="skeleton skeleton-button" style={{width: '120px', height: '40px'}}></div>
+                <div className="skeleton skeleton-button" style={{width: '120px', height: '40px'}}></div>
+              </div>
 
-            <div className="dashboard-content">
-              <div className="about-content-section">
-                  <div className="skeleton skeleton-title" style={{width: '150px', height: '2rem', marginBottom: '1.5rem'}}></div>
-                  <div className="skeleton skeleton-text" style={{width: '100%', marginBottom: '0.5rem'}}></div>
-                  <div className="skeleton skeleton-text" style={{width: '95%', marginBottom: '0.5rem'}}></div>
-                  <div className="skeleton skeleton-text" style={{width: '90%', marginBottom: '0.5rem'}}></div>
-                  <div className="skeleton skeleton-text" style={{width: '85%', marginBottom: '2rem'}}></div>
-                  
-                  <div className="stats-grid">
-                      <div className="skeleton skeleton-card" style={{height: '100px'}}></div>
-                      <div className="skeleton skeleton-card" style={{height: '100px'}}></div>
-                      <div className="skeleton skeleton-card" style={{height: '100px'}}></div>
-                  </div>
+              <div className="dashboard-content">
+                <div className="about-content-section">
+                    <div className="skeleton skeleton-title" style={{width: '150px', height: '2rem', marginBottom: '1.5rem'}}></div>
+                    <div className="skeleton skeleton-text" style={{width: '100%', marginBottom: '0.5rem'}}></div>
+                    <div className="skeleton skeleton-text" style={{width: '95%', marginBottom: '0.5rem'}}></div>
+                    <div className="skeleton skeleton-text" style={{width: '90%', marginBottom: '0.5rem'}}></div>
+                    <div className="skeleton skeleton-text" style={{width: '85%', marginBottom: '2rem'}}></div>
+                    
+                    <div className="stats-grid">
+                        <div className="skeleton skeleton-card" style={{height: '100px'}}></div>
+                        <div className="skeleton skeleton-card" style={{height: '100px'}}></div>
+                        <div className="skeleton skeleton-card" style={{height: '100px'}}></div>
+                    </div>
+                </div>
               </div>
             </div>
           </div>
@@ -218,70 +220,73 @@ function About({ supabase, user }) {
     <div className="detail" style={{ marginTop: 0 }}>
       <InteractiveBackground />
       
-      <div className="about-dashboard">
-        {/* Left Panel: Profile */}
-        <div className="profile-panel">
-          <div className="profile-card">
-            <div className="profile-image-container">
-              <div className="profile-image-placeholder">
-                <img src={pfp} alt="Walid Sabbar" className="profile-image" />
+      {/* Added page-content-container wrapper */}
+      <div className="page-content-container">
+        <div className="about-dashboard">
+          {/* Left Panel: Profile */}
+          <div className="profile-panel">
+            <div className="profile-card">
+              <div className="profile-image-container">
+                <div className="profile-image-placeholder">
+                  <img src={pfp} alt="Walid Sabbar" className="profile-image" />
+                </div>
+                <div className="status-badge">
+                  <span className="status-dot"></span>
+                  Available
+                </div>
               </div>
-              <div className="status-badge">
-                <span className="status-dot"></span>
-                Available
+              <h2 className="profile-name">Walid Sabbar</h2>
+              <p className="profile-role">Full Stack Developer</p>
+              
+              <div className="profile-actions">
+                <a 
+                  href={cv} 
+                  download="Walid_Sabbar_CV.pdf"
+                  className="cv-btn primary"
+                  style={{
+                    textDecoration: 'none', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center'
+                  }}
+                >
+                  <i className='bx bx-download'></i> {t.downloadCv}
+                </a>
+              </div>
+
+              <div className="profile-social">
+                <a href="https://github.com/walidsabbar1" className="social-link" aria-label="GitHub"><i className='bx bxl-github'></i></a>
+                <a href="https://www.linkedin.com/in/walid-sabbar-5262152a0/" className="social-link" aria-label="LinkedIn"><i className='bx bxl-linkedin'></i></a>
               </div>
             </div>
-            <h2 className="profile-name">Walid Sabbar</h2>
-            <p className="profile-role">Full Stack Developer</p>
-            
-            <div className="profile-actions">
-              <a 
-                href={cv} 
-                download="Walid_Sabbar_CV.pdf"
-                className="cv-btn primary"
-                style={{
-                  textDecoration: 'none', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'center'
-                }}
+          </div>
+
+          {/* Right Panel: Content */}
+          <div className="content-panel">
+            <div className="dashboard-tabs">
+              <button 
+                className={`tab-btn ${activeTab === 'bio' ? 'active' : ''}`}
+                onClick={() => setActiveTab('bio')}
               >
-                <i className='bx bx-download'></i> {t.downloadCv}
-              </a>
+                <i className='bx bx-user'></i> {t.whoIAm}
+              </button>
+              <button 
+                className={`tab-btn ${activeTab === 'education' ? 'active' : ''}`}
+                onClick={() => setActiveTab('education')}
+              >
+                <i className='bx bx-book'></i> {t.education}
+              </button>
+              <button 
+                className={`tab-btn ${activeTab === 'experience' ? 'active' : ''}`}
+                onClick={() => setActiveTab('experience')}
+              >
+                <i className='bx bx-briefcase'></i> {t.experience}
+              </button>
             </div>
 
-            <div className="profile-social">
-              <a href="https://github.com/walidsabbar1" className="social-link" aria-label="GitHub"><i className='bx bxl-github'></i></a>
-              <a href="https://www.linkedin.com/in/walid-sabbar-5262152a0/" className="social-link" aria-label="LinkedIn"><i className='bx bxl-linkedin'></i></a>
+            <div className="dashboard-content">
+              {renderContent()}
             </div>
-          </div>
-        </div>
-
-        {/* Right Panel: Content */}
-        <div className="content-panel">
-          <div className="dashboard-tabs">
-            <button 
-              className={`tab-btn ${activeTab === 'bio' ? 'active' : ''}`}
-              onClick={() => setActiveTab('bio')}
-            >
-              <i className='bx bx-user'></i> {t.whoIAm}
-            </button>
-            <button 
-              className={`tab-btn ${activeTab === 'education' ? 'active' : ''}`}
-              onClick={() => setActiveTab('education')}
-            >
-              <i className='bx bx-book'></i> {t.education}
-            </button>
-            <button 
-              className={`tab-btn ${activeTab === 'experience' ? 'active' : ''}`}
-              onClick={() => setActiveTab('experience')}
-            >
-              <i className='bx bx-briefcase'></i> {t.experience}
-            </button>
-          </div>
-
-          <div className="dashboard-content">
-            {renderContent()}
           </div>
         </div>
       </div>

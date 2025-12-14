@@ -54,66 +54,69 @@ function Home() {
     <div className="detail home-animate">
       <InteractiveBackground />
       
-      <div className="home-container">
-        {/* Left Side - Text Content */}
-        <div className="home-content">
-          <div className="intro-badge animate-slide-up">
-            <span className="wave">👋</span> {t.welcome}
+      {/* Added page-content-container wrapper */}
+      <div className="page-content-container">
+        <div className="home-container">
+          {/* Left Side - Text Content */}
+          <div className="home-content">
+            <div className="intro-badge animate-slide-up">
+              <span className="wave">👋</span> {t.welcome}
+            </div>
+            
+            <h1 className="home-title animate-slide-up" style={{animationDelay: '0.1s'}}>
+              <span className="text-light">I'm</span> <span className="name-glitch" data-text="Walid Sabbar">Walid Sabbar</span>
+            </h1>
+            
+            <div className="typewriter-container animate-slide-up" style={{animationDelay: '0.2s'}}>
+              <span className="typewriter-text">{displayText}</span>
+              <span className="cursor">|</span>
+            </div>
+            
+            <p className="home-description animate-slide-up" style={{animationDelay: '0.3s'}}>
+              Building digital experiences with modern technologies. 
+              Focused on creating accessible, pixel-perfect, and performant web applications.
+            </p>
+            
+            <div className="home-actions animate-slide-up" style={{animationDelay: '0.4s'}}>
+              <a href="#contact" onClick={(e) => { e.preventDefault(); navigate('/contact'); }} className="primary-btn">
+                {t.letsConnect} <i className='bx bx-right-arrow-alt'></i>
+              </a>
+            </div>
+            
+            <div className="social-links-minimal animate-fade-in" style={{animationDelay: '0.6s'}}>
+              <a href="https://www.linkedin.com/in/walid-sabbar-5262152a0/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <i className='bx bxl-linkedin'></i>
+              </a>
+              <a href="https://github.com/walidsabbar1" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <i className='bx bxl-github'></i>
+              </a>
+              <a href="https://www.instagram.com/walid_sabbar1" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <i className='bx bxl-instagram'></i>
+              </a>
+              <a href="https://www.youtube.com/channel/UCVnf6C2Qn1nrAYKlFgIbhiw" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <i className='bx bxl-youtube'></i>
+              </a>
+            </div>
           </div>
           
-          <h1 className="home-title animate-slide-up" style={{animationDelay: '0.1s'}}>
-            <span className="text-light">I'm</span> <span className="name-glitch" data-text="Walid Sabbar">Walid Sabbar</span>
-          </h1>
-          
-          <div className="typewriter-container animate-slide-up" style={{animationDelay: '0.2s'}}>
-            <span className="typewriter-text">{displayText}</span>
-            <span className="cursor">|</span>
-          </div>
-          
-          <p className="home-description animate-slide-up" style={{animationDelay: '0.3s'}}>
-            Building digital experiences with modern technologies. 
-            Focused on creating accessible, pixel-perfect, and performant web applications.
-          </p>
-          
-          <div className="home-actions animate-slide-up" style={{animationDelay: '0.4s'}}>
-            <a href="#contact" onClick={(e) => { e.preventDefault(); navigate('/contact'); }} className="primary-btn">
-              {t.letsConnect} <i className='bx bx-right-arrow-alt'></i>
-            </a>
-          </div>
-          
-          <div className="social-links-minimal animate-fade-in" style={{animationDelay: '0.6s'}}>
-            <a href="https://www.linkedin.com/in/walid-sabbar-5262152a0/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <i className='bx bxl-linkedin'></i>
-            </a>
-            <a href="https://github.com/walidsabbar1" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-              <i className='bx bxl-github'></i>
-            </a>
-            <a href="https://www.instagram.com/walid_sabbar1" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <i className='bx bxl-instagram'></i>
-            </a>
-            <a href="https://www.youtube.com/channel/UCVnf6C2Qn1nrAYKlFgIbhiw" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-              <i className='bx bxl-youtube'></i>
-            </a>
-          </div>
-        </div>
-        
-        {/* Right Side - 3D Image */}
-        <div className="home-image-section animate-scale-in" style={{animationDelay: '0.2s'}}>
-          <div 
-            className="profile-card-3d"
-            ref={cardRef}
-          >
-            <div className="card-content">
-              <div className="image-wrapper">
-                <img src={pfp} alt="Walid Sabbar" />
-                <div className="image-overlay"></div>
+          {/* Right Side - 3D Image */}
+          <div className="home-image-section animate-scale-in" style={{animationDelay: '0.2s'}}>
+            <div 
+              className="profile-card-3d"
+              ref={cardRef}
+            >
+              <div className="card-content">
+                <div className="image-wrapper">
+                  <img src={pfp} alt="Walid Sabbar" />
+                  <div className="image-overlay"></div>
+                </div>
+                <div className="card-decoration"></div>
+                
+                {/* Floating tech icons */}
+                <div className="floating-icon react"><i className='bx bxl-react'></i></div>
+                <div className="floating-icon js"><i className='bx bxl-javascript'></i></div>
+                <div className="floating-icon node"><i className='bx bxl-nodejs'></i></div>
               </div>
-              <div className="card-decoration"></div>
-              
-              {/* Floating tech icons */}
-              <div className="floating-icon react"><i className='bx bxl-react'></i></div>
-              <div className="floating-icon js"><i className='bx bxl-javascript'></i></div>
-              <div className="floating-icon node"><i className='bx bxl-nodejs'></i></div>
             </div>
           </div>
         </div>
