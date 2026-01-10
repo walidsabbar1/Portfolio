@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import suitcaseIcon from './Assets/icons/suitcase.png';
+import suitcaseIcon from './Assets/icons/suitcase.webp';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
