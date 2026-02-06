@@ -223,9 +223,6 @@ function Projects({ supabase, user }) {
                     <FaCode className="tab-icon" />
                     {currentProject?.title || 'Untitled'}.js
                   </div>
-                  <div className="tab">
-                    readme.md
-                  </div>
                 </div>
                 
                 <div className="project-details-content">
