@@ -501,6 +501,13 @@ const Header = ({ menuOpen, setMenuOpen, user, onLogout }) => {
                 >
                   <div className="switch-slider"></div>
                   <div className="flag-icon en">
+                    <svg viewBox="0 0 3 2" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+                      <rect width="1" height="2" fill="#0055A4"/>
+                      <rect width="1" height="2" x="1" fill="#FFFFFF"/>
+                      <rect width="1" height="2" x="2" fill="#EF4135"/>
+                    </svg>
+                  </div>
+                  <div className="flag-icon fr">
                     <svg viewBox="0 0 60 30" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
                       <clipPath id="t"><path d="M30,15h30v15zv15h-30zh-30v-15zv-15h30z"/></clipPath>
                       <path d="M0,0v30h60v-30z" fill="#012169"/>
@@ -508,13 +515,6 @@ const Header = ({ menuOpen, setMenuOpen, user, onLogout }) => {
                       <path d="M0,0l60,30m0-30l-60,30" clipPath="url(#t)" stroke="#C8102E" strokeWidth="4"/>
                       <path d="M30,0v30m-30-15h60" stroke="#fff" strokeWidth="10"/>
                       <path d="M30,0v30m-30-15h60" stroke="#C8102E" strokeWidth="6"/>
-                    </svg>
-                  </div>
-                  <div className="flag-icon fr">
-                    <svg viewBox="0 0 3 2" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
-                      <rect width="1" height="2" fill="#0055A4"/>
-                      <rect width="1" height="2" x="1" fill="#FFFFFF"/>
-                      <rect width="1" height="2" x="2" fill="#EF4135"/>
                     </svg>
                   </div>
                 </div>
