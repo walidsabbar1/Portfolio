@@ -2,10 +2,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { 
   FaHtml5, FaCss3Alt, FaJs, FaReact, FaNodeJs, 
-  FaGitAlt, FaGithub, FaTasks, FaFileExcel, FaCode, FaServer, FaTools, FaDatabase
+  FaGitAlt, FaGithub, FaTasks, FaFileExcel, FaCode, FaServer, FaTools, FaDatabase, FaJava
 } from 'react-icons/fa';
 import { 
-  SiPhp, SiLaravel, SiMysql, SiMongodb, SiTypescript, SiTailwindcss, SiFigma
+  SiPhp, SiLaravel, SiMysql, SiMongodb, SiTypescript, SiTailwindcss, 
+  SiRuby, SiFigma, SiPython, SiDotnet
 } from 'react-icons/si';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../utils/translations';
@@ -14,9 +15,9 @@ import InteractiveBackground from './InteractiveBackground';
 // Icon mapping
 const iconComponents = {
   FaHtml5, FaCss3Alt, FaJs, FaReact, FaNodeJs, 
-  FaGitAlt, FaGithub, FaTasks, FaFileExcel,
+  FaGitAlt, FaGithub, FaTasks, FaFileExcel, FaCode, FaServer, FaTools, FaDatabase, FaJava,
   SiPhp, SiLaravel, SiMysql, SiMongodb,
-  SiTypescript, SiTailwindcss, SiFigma
+  SiTypescript, SiTailwindcss, SiFigma, SiPython, SiRuby, SiDotnet
 };
 
 function Skills({ supabase, user }) {
@@ -71,7 +72,9 @@ function Skills({ supabase, user }) {
   };
 
   const getIconComponent = (iconName) => {
-    return iconComponents[iconName] || FaCode;
+    if (!iconName) return FaCode;
+    const cleanName = typeof iconName === 'string' ? iconName.trim() : iconName;
+    return iconComponents[cleanName] || FaCode;
   };
 
   const getCategoryIcon = (category) => {

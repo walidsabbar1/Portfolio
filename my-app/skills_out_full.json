@@ -1,0 +1,189 @@
+[
+  {
+    "id": "0b8b328d-90f0-4a36-b1b8-3a6c0d8110cb",
+    "name": "MongoDB",
+    "category": "Database",
+    "level": 8,
+    "icon_name": "SiMongodb",
+    "color": "#47A248",
+    "display_order": 6,
+    "created_at": "2026-02-11T18:10:36.71078+00:00",
+    "updated_at": "2026-02-11T18:10:36.71078+00:00"
+  },
+  {
+    "id": "2995a24f-6c53-4037-a075-79a9f91f9e38",
+    "name": "Agile",
+    "category": "Tools",
+    "level": 8,
+    "icon_name": "FaTasks",
+    "color": "#6366f1",
+    "display_order": 7,
+    "created_at": "2026-02-11T18:10:36.71078+00:00",
+    "updated_at": "2026-02-11T18:10:36.71078+00:00"
+  },
+  {
+    "id": "9d107787-3309-4d7a-884b-f2fdc1c0c48c",
+    "name": "GitHub",
+    "category": "Tools",
+    "level": 8,
+    "icon_name": "FaGithub",
+    "color": "#181717",
+    "display_order": 10,
+    "created_at": "2026-02-11T18:10:36.71078+00:00",
+    "updated_at": "2026-02-11T18:10:36.71078+00:00"
+  },
+  {
+    "id": "56680cf5-7d4c-480c-a5b0-f7b3a6741a80",
+    "name": "Git",
+    "category": "Tools",
+    "level": 8,
+    "icon_name": "FaGitAlt",
+    "color": "#F05032",
+    "display_order": 11,
+    "created_at": "2026-02-11T18:10:36.71078+00:00",
+    "updated_at": "2026-02-11T18:10:36.71078+00:00"
+  },
+  {
+    "id": "419aa0a1-723c-4f59-8b31-c8ed89cb5bf6",
+    "name": "JavaScript",
+    "category": "Foundation",
+    "level": 8,
+    "icon_name": "FaJs",
+    "color": "#F7DF1E",
+    "display_order": 3,
+    "created_at": "2026-02-11T18:10:36.71078+00:00",
+    "updated_at": "2026-02-11T18:12:44.559354+00:00"
+  },
+  {
+    "id": "471e80cf-26ee-4bb9-ac7b-3ff40223c841",
+    "name": "PHP",
+    "category": "Backend",
+    "level": 8,
+    "icon_name": "SiPhp",
+    "color": "#777BB4",
+    "display_order": 4,
+    "created_at": "2026-02-11T18:10:36.71078+00:00",
+    "updated_at": "2026-02-11T18:12:48.837467+00:00"
+  },
+  {
+    "id": "211e712d-1900-4517-bdfa-20e880ae6a06",
+    "name": "SQL",
+    "category": "Database",
+    "level": 7,
+    "icon_name": "SiMysql",
+    "color": "#4479A1",
+    "display_order": 5,
+    "created_at": "2026-02-11T18:10:36.71078+00:00",
+    "updated_at": "2026-02-11T18:13:02.015606+00:00"
+  },
+  {
+    "id": "06de8e7b-160e-432f-8c4a-0700c1da1bde",
+    "name": "React",
+    "category": "Frontend",
+    "level": 9,
+    "icon_name": "FaReact",
+    "color": "#61DAFB",
+    "display_order": 7,
+    "created_at": "2026-02-11T18:10:36.71078+00:00",
+    "updated_at": "2026-02-11T18:13:11.248992+00:00"
+  },
+  {
+    "id": "daf93d68-799c-4c5e-8e78-04eaf5032c18",
+    "name": "Laravel",
+    "category": "Backend",
+    "level": 8,
+    "icon_name": "SiLaravel",
+    "color": "#FF2D20",
+    "display_order": 8,
+    "created_at": "2026-02-11T18:10:36.71078+00:00",
+    "updated_at": "2026-02-11T18:13:16.436294+00:00"
+  },
+  {
+    "id": "216ad2b3-8ece-44cd-b117-133a19bb059c",
+    "name": "Office",
+    "category": "Tools",
+    "level": 8,
+    "icon_name": "FaFileExcel",
+    "color": "#217346",
+    "display_order": 9,
+    "created_at": "2026-02-11T18:10:36.71078+00:00",
+    "updated_at": "2026-02-11T18:13:33.225389+00:00"
+  },
+  {
+    "id": "eb14ec34-9082-4dc8-9712-e51c7783483a",
+    "name": "JAVA",
+    "category": "Backend",
+    "level": 5,
+    "icon_name": "SiJava",
+    "color": "#f89820",
+    "display_order": 13,
+    "created_at": "2026-02-11T18:17:25.360848+00:00",
+    "updated_at": "2026-02-11T18:17:25.360848+00:00"
+  },
+  {
+    "id": "64f3c1e6-c013-4f61-990d-a8cbefd336e9",
+    "name": "Node.js",
+    "category": "Backend",
+    "level": 7,
+    "icon_name": "FaNodeJs",
+    "color": "#339933",
+    "display_order": 12,
+    "created_at": "2026-02-11T18:10:36.71078+00:00",
+    "updated_at": "2026-02-11T18:17:51.103184+00:00"
+  },
+  {
+    "id": "b9cd6887-05b2-4835-9542-726313a46383",
+    "name": "HTML",
+    "category": "Foundation",
+    "level": 9,
+    "icon_name": "FaHtml5",
+    "color": "#E34F26",
+    "display_order": 1,
+    "created_at": "2026-02-11T18:10:36.71078+00:00",
+    "updated_at": "2026-02-11T18:17:58.273306+00:00"
+  },
+  {
+    "id": "05390dcf-9a56-45dc-9c8b-16705d70ee71",
+    "name": "CSS",
+    "category": "Foundation",
+    "level": 9,
+    "icon_name": "FaCss3Alt",
+    "color": "#1572B6",
+    "display_order": 2,
+    "created_at": "2026-02-11T18:10:36.71078+00:00",
+    "updated_at": "2026-02-11T18:18:06.586159+00:00"
+  },
+  {
+    "id": "45bf9042-41dc-4d3e-af78-a69ccc85c6c2",
+    "name": "Ruby ",
+    "category": "Backend",
+    "level": 5,
+    "icon_name": "FaGem ",
+    "color": "#E02911",
+    "display_order": 15,
+    "created_at": "2026-03-10T12:58:37.263281+00:00",
+    "updated_at": "2026-03-10T13:00:06.075866+00:00"
+  },
+  {
+    "id": "93c035c9-1919-4709-9d21-cf73bb21a5cf",
+    "name": "C#",
+    "category": "Backend",
+    "level": 5,
+    "icon_name": "SiCsharp",
+    "color": "#800080",
+    "display_order": 14,
+    "created_at": "2026-03-10T12:53:36.170097+00:00",
+    "updated_at": "2026-03-10T13:08:25.12638+00:00"
+  },
+  {
+    "id": "e15ce9da-d1ab-4bf7-839c-a6fdb1fc155d",
+    "name": "Python",
+    "category": "Backend",
+    "level": 6,
+    "icon_name": "SiPython",
+    "color": null,
+    "display_order": 15,
+    "created_at": "2026-03-10T13:03:08.997599+00:00",
+    "updated_at": "2026-03-10T13:08:27.632653+00:00"
+  }
+]
