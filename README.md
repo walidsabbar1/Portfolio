@@ -2,6 +2,8 @@
 
 Welcome to my personal portfolio repository! This project represents more than just a collection of code—it's a living documentation of my growth, creativity, and passion for software development.
 
+The app will launch in your browser at https://walidsabbar.vercel.app/.
+
 ## 📖 The Journey
 
 Every developer needs a home on the web, a place to carve out their identity. This portfolio started as a simple idea: to build something that didn't just _tell_ people what I can do, but _showed_ them through experience.
@@ -66,8 +68,6 @@ If you'd like to explore the code or run this locally:
     ```bash
     npm start
     ```
-
-The app will launch in your browser at `https://walidsabbar.vercel.app/`.
 
 ---
 

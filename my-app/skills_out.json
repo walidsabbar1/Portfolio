@@ -1,0 +1,70 @@
+[
+  {
+    "name": "MongoDB",
+    "icon_name": "SiMongodb"
+  },
+  {
+    "name": "Agile",
+    "icon_name": "FaTasks"
+  },
+  {
+    "name": "GitHub",
+    "icon_name": "FaGithub"
+  },
+  {
+    "name": "Git",
+    "icon_name": "FaGitAlt"
+  },
+  {
+    "name": "JavaScript",
+    "icon_name": "FaJs"
+  },
+  {
+    "name": "PHP",
+    "icon_name": "SiPhp"
+  },
+  {
+    "name": "SQL",
+    "icon_name": "SiMysql"
+  },
+  {
+    "name": "React",
+    "icon_name": "FaReact"
+  },
+  {
+    "name": "Laravel",
+    "icon_name": "SiLaravel"
+  },
+  {
+    "name": "Office",
+    "icon_name": "FaFileExcel"
+  },
+  {
+    "name": "JAVA",
+    "icon_name": "SiJava"
+  },
+  {
+    "name": "Node.js",
+    "icon_name": "FaNodeJs"
+  },
+  {
+    "name": "HTML",
+    "icon_name": "FaHtml5"
+  },
+  {
+    "name": "CSS",
+    "icon_name": "FaCss3Alt"
+  },
+  {
+    "name": "Ruby ",
+    "icon_name": "FaGem "
+  },
+  {
+    "name": "C#",
+    "icon_name": "SiCsharp"
+  },
+  {
+    "name": "Python",
+    "icon_name": "SiPython"
+  }
+]
