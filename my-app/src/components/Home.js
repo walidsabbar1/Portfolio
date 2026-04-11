@@ -7,10 +7,11 @@ import { translations } from '../utils/translations';
 import pfp from '../Assets/images/pfpwebp.webp';
 import InteractiveBackground from './InteractiveBackground';
 
-function Home() {
+function Home({ supabase }) {
   const navigate = useNavigate();
   const { language } = useLanguage();
   const t = translations[language];
+  const [profile, setProfile] = useState(null);
   
   // Typewriter effect state
   const [displayText, setDisplayText] = useState('');
@@ -48,7 +49,19 @@ function Home() {
 
   useEffect(() => {
     document.body.classList.add('page-loaded');
-  }, []);
+    
+    // Fetch dynamic profile data
+    const fetchProfile = async () => {
+      if (!supabase) return;
+      try {
+        const { data } = await supabase.from('profile_info').select('*').limit(1).single();
+        if (data) setProfile(data);
+      } catch (err) {
+        console.error('Error fetching profile:', err);
+      }
+    };
+    fetchProfile();
+  }, [supabase]);
 
   return (
     <div className="detail home-animate">
@@ -64,7 +77,7 @@ function Home() {
             </div>
             
             <h1 className="home-title animate-slide-up" style={{animationDelay: '0.1s'}}>
-              <span className="text-light">I'm</span> <span className="name-glitch" data-text="Walid Sabbar">Walid Sabbar</span>
+              <span className="text-light">I'm</span> <span className="name-glitch" data-text={profile?.full_name}>{profile?.full_name}</span>
             </h1>
             
             <div className="typewriter-container animate-slide-up" style={{animationDelay: '0.2s'}}>
@@ -73,8 +86,7 @@ function Home() {
             </div>
             
             <p className="home-description animate-slide-up" style={{animationDelay: '0.3s'}}>
-              Building digital experiences with modern technologies. 
-              Focused on creating accessible, pixel-perfect, and performant web applications.
+              {profile?.hero_text}
             </p>
             
             <div className="home-actions animate-slide-up" style={{animationDelay: '0.4s'}}>
@@ -84,12 +96,16 @@ function Home() {
             </div>
             
             <div className="social-links-minimal animate-fade-in" style={{animationDelay: '0.6s'}}>
-              <a href="https://www.linkedin.com/in/walid-sabbar-5262152a0/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                <i className='bx bxl-linkedin'></i>
-              </a>
-              <a href="https://github.com/walidsabbar1" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                <i className='bx bxl-github'></i>
-              </a>
+              {profile?.linkedin_url && (
+                <a href={profile.linkedin_url} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                  <i className='bx bxl-linkedin'></i>
+                </a>
+              )}
+              {profile?.github_url && (
+                <a href={profile.github_url} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                  <i className='bx bxl-github'></i>
+                </a>
+              )}
               <a href="https://www.instagram.com/walid_sabbar1" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <i className='bx bxl-instagram'></i>
               </a>

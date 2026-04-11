@@ -1,11 +1,20 @@
 // App.js
 import { useState, useCallback, lazy, Suspense, useMemo, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, NavLink, Outlet } from 'react-router-dom';
 import { supabase } from './lib/supabase';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import { translations } from './utils/translations';
 import './App.css';
 import pfp from './Assets/images/pfpwebp.webp';
+import { AuthProvider } from './contexts/AuthContext';
+import Login from './components/admin/Login';
+import AdminLayout from './components/admin/AdminLayout';
+import ProtectedRoute from './components/admin/ProtectedRoute';
+import ManageProjects from './components/admin/ManageProjects';
+import ManageSkills from './components/admin/ManageSkills';
+import ManageExperience from './components/admin/ManageExperience';
+import ManageEducation from './components/admin/ManageEducation';
+import ManageProfile from './components/admin/ManageProfile';
 
 // Lazy load components for code splitting
 const Home = lazy(() => import('./components/Home'));
@@ -536,6 +545,19 @@ const Header = ({ menuOpen, setMenuOpen, user, onLogout }) => {
   );
 };
 
+// Public Layout wrapper to isolate the navigation header to client-facing routes only
+const PublicLayout = ({ menuOpen, setMenuOpen, user, onLogout }) => (
+  <>
+    <Header 
+      menuOpen={menuOpen} 
+      setMenuOpen={setMenuOpen} 
+      user={user} 
+      onLogout={onLogout} 
+    />
+    <Outlet />
+  </>
+);
+
 // Main App component
 function AppContent() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -604,34 +626,54 @@ function AppContent() {
   );
 
   if (loading) {
+    const isAdminRoute = currentPath.startsWith('/admin');
     return (
       <BrowserRouter>
-        <Header 
-          menuOpen={menuOpen} 
-          setMenuOpen={setMenuOpen} 
-          user={user} 
-          onLogout={handleLogout} 
-        />
-        <LoadingFallback route={currentPath} />
-        <Suspense fallback={null}>
-        </Suspense>
+        {!isAdminRoute && (
+          <Header 
+            menuOpen={menuOpen} 
+            setMenuOpen={setMenuOpen} 
+            user={user} 
+            onLogout={handleLogout} 
+          />
+        )}
+        {!isAdminRoute ? (
+          <LoadingFallback route={currentPath} />
+        ) : (
+          <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#111', color: '#fff' }}>
+            <h2>Loading...</h2>
+          </div>
+        )}
       </BrowserRouter>
     );
   }
 
+
   return (
     <BrowserRouter>
-      <Header 
-        menuOpen={menuOpen} 
-        setMenuOpen={setMenuOpen} 
-        user={user} 
-        onLogout={handleLogout} 
-      />
       <Routes>
-        {routeElements}
+        {/* Public Routes Wrapped in PublicLayout */}
+        <Route element={<PublicLayout menuOpen={menuOpen} setMenuOpen={setMenuOpen} user={user} onLogout={handleLogout} />}>
+          {routeElements}
+        </Route>
+
+        {/* Admin Login Route */}
+        <Route path="/admin/login" element={<Login />} />
+
+        {/* Protected Admin Routes */}
+        <Route path="/admin" element={
+          <ProtectedRoute>
+            <AdminLayout />
+          </ProtectedRoute>
+        }>
+          <Route index element={<div style={{padding: '20px'}}><h2>Admin Dashboard</h2><p>Welcome to the secure admin panel.</p></div>} />
+          <Route path="projects" element={<ManageProjects />} />
+          <Route path="skills" element={<ManageSkills />} />
+          <Route path="experience" element={<ManageExperience />} />
+          <Route path="education" element={<ManageEducation />} />
+          <Route path="profile" element={<ManageProfile />} />
+        </Route>
       </Routes>
-      <Suspense fallback={null}>
-      </Suspense>
     </BrowserRouter>
   );
 }
@@ -639,9 +681,11 @@ function AppContent() {
 // App wrapper with LanguageProvider
 function App() {
   return (
-    <LanguageProvider>
-      <AppContent />
-    </LanguageProvider>
+    <AuthProvider>
+      <LanguageProvider>
+        <AppContent />
+      </LanguageProvider>
+    </AuthProvider>
   );
 }
 

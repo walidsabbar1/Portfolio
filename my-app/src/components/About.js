@@ -10,6 +10,9 @@ function About({ supabase, user }) {
   const [visitCount, setVisitCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('bio');
+  const [profile, setProfile] = useState(null);
+  const [educationList, setEducationList] = useState([]);
+  const [experienceList, setExperienceList] = useState([]);
   const { language } = useLanguage();
   const t = translations[language];
 
@@ -43,9 +46,51 @@ function About({ supabase, user }) {
       }
     };
 
+    const fetchDynamicData = async () => {
+      try {
+        const [profileRes, eduRes, expRes] = await Promise.all([
+          supabase.from('profile_info').select('*').limit(1).single(),
+          supabase.from('education').select('*'),
+          supabase.from('experience').select('*')
+        ]);
+        
+        if (profileRes.data) setProfile(profileRes.data);
+
+        // Helper to extract year for reliable chronological sorting
+        const extractYear = (dateStr) => {
+          if (!dateStr) return 0;
+          const lower = String(dateStr).toLowerCase();
+          if (lower.includes('present') || lower.includes('current') || lower.includes('en cours')) return 9999;
+          const match = lower.match(/\d{4}/);
+          return match ? parseInt(match[0], 10) : 0;
+        };
+
+        if (eduRes.data) {
+          const sortedEdu = eduRes.data.sort((a, b) => {
+            const yearA = extractYear(a.end_year) || extractYear(a.start_year);
+            const yearB = extractYear(b.end_year) || extractYear(b.start_year);
+            return yearB - yearA; // Descending (recent first)
+          });
+          setEducationList(sortedEdu);
+        }
+        
+        if (expRes.data) {
+          const sortedExp = expRes.data.sort((a, b) => {
+            const yearA = extractYear(a.end_date) || extractYear(a.start_date);
+            const yearB = extractYear(b.end_date) || extractYear(b.start_date);
+            return yearB - yearA; // Descending (recent first)
+          });
+          setExperienceList(sortedExp);
+        }
+      } catch (error) {
+        console.error('Error fetching dynamic data:', error);
+      }
+    };
+
     // Simulate loading for better UX demonstration
     setTimeout(() => {
       trackVisit();
+      fetchDynamicData();
     }, 800);
     
     document.body.classList.add('page-loaded');
@@ -117,7 +162,7 @@ function About({ supabase, user }) {
               <span className="hash">#</span> {t.whoIAm}
             </h3>
             <div className="bio-text">
-              {t.whoIAmText.split('\n').map((line, i) => (
+              {profile?.bio && profile.bio.split('\n').map((line, i) => (
                 <p key={i}>{line}</p>
               ))}
             </div>
@@ -144,33 +189,17 @@ function About({ supabase, user }) {
               <span className="hash">#</span> {t.education}
             </h3>
             <div className="timeline">
-              <div className="timeline-item">
-                <div className="timeline-marker"></div>
-                <div className="timeline-content">
-                  <span className="timeline-date">{t.educationItems.fullstack.period}</span>
-                  <h4 className="timeline-title">{t.educationItems.fullstack.title}</h4>
-                  <p className="timeline-subtitle">OFPPT Casablanca</p>
-                  <p className="timeline-desc">{t.educationItems.fullstack.description}</p>
+              {educationList.length > 0 && educationList.map((edu) => (
+                <div key={edu.id} className="timeline-item">
+                  <div className="timeline-marker"></div>
+                  <div className="timeline-content">
+                    <span className="timeline-date">{edu.start_year} - {edu.end_year}</span>
+                    <h4 className="timeline-title">{edu.degree}</h4>
+                    <p className="timeline-subtitle">{edu.school}</p>
+                    <p className="timeline-desc">{edu.description}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="timeline-item">
-                <div className="timeline-marker"></div>
-                <div className="timeline-content">
-                  <span className="timeline-date">2021 - 2024</span>
-                  <h4 className="timeline-title">{t.educationItems.license.title}</h4>
-                  <p className="timeline-subtitle">{t.educationItems.license.period}</p>
-                  <p className="timeline-desc">{t.educationItems.license.description}</p>
-                </div>
-              </div>
-              <div className="timeline-item">
-                <div className="timeline-marker"></div>
-                <div className="timeline-content">
-                  <span className="timeline-date">{t.educationItems.bac.period}</span>
-                  <h4 className="timeline-title">{t.educationItems.bac.title}</h4>
-                  <p className="timeline-subtitle">Lycée Othman Ibn Affane</p>
-                  <p className="timeline-desc">{t.educationItems.bac.description}</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         );
@@ -181,32 +210,16 @@ function About({ supabase, user }) {
               <span className="hash">#</span> {t.experience}
             </h3>
             <div className="experience-list">
-              <div className="experience-card">
-                <div className="exp-header">
-                  <h4 className="exp-title">{t.experienceItems.sothema.title}</h4>
-                  <span className="exp-company">SOTHEMA</span>
-                  <span className="exp-date">{t.experienceItems.sothema.period}</span>
+              {experienceList.length > 0 && experienceList.map(exp => (
+                <div key={exp.id} className="experience-card">
+                  <div className="exp-header">
+                    <h4 className="exp-title">{exp.job_title}</h4>
+                    <span className="exp-company">{exp.company}</span>
+                    <span className="exp-date">{exp.start_date} - {exp.end_date}</span>
+                  </div>
+                  <p className="exp-desc">{exp.description}</p>
                 </div>
-                <p className="exp-desc">{t.experienceItems.sothema.description}</p>
-                <div className="exp-tech">
-                  <span>React</span>
-                  <span>Laravel</span>
-                  <span>MySQL</span>
-                </div>
-              </div>
-              <div className="experience-card">
-                <div className="exp-header">
-                  <h4 className="exp-title">{t.experienceItems.hackathon.title}</h4>
-                  <span className="exp-company">ISGI Hackathon</span>
-                  <span className="exp-date">{t.experienceItems.hackathon.period}</span>
-                </div>
-                <p className="exp-desc">{t.experienceItems.hackathon.description}</p>
-                <div className="exp-tech">
-                  <span>Teamwork</span>
-                  <span>Innovation</span>
-                  <span>Prototyping</span>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         );
@@ -234,28 +247,31 @@ function About({ supabase, user }) {
                   Available
                 </div>
               </div>
-              <h2 className="profile-name">Walid Sabbar</h2>
-              <p className="profile-role">Full Stack Developer</p>
+              <h2 className="profile-name">{profile?.full_name}</h2>
+              <p className="profile-role">{profile?.title}</p>
               
               <div className="profile-actions">
-                <a 
-                  href={cv} 
-                  download="Walid_Sabbar_CV.pdf"
-                  className="cv-btn primary"
-                  style={{
-                    textDecoration: 'none', 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center'
-                  }}
-                >
-                  <i className='bx bx-download'></i> {t.downloadCv}
-                </a>
+                {profile?.resume_url && (
+                  <a 
+                    href={profile.resume_url} 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cv-btn primary"
+                    style={{
+                      textDecoration: 'none', 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center'
+                    }}
+                  >
+                    <i className='bx bx-file-blank'></i> {t.downloadCv || "View CV"}
+                  </a>
+                )}
               </div>
 
               <div className="profile-social">
-                <a href="https://github.com/walidsabbar1" className="social-link" aria-label="GitHub"><i className='bx bxl-github'></i></a>
-                <a href="https://www.linkedin.com/in/walid-sabbar-5262152a0/" className="social-link" aria-label="LinkedIn"><i className='bx bxl-linkedin'></i></a>
+                {profile?.github_url && <a href={profile.github_url} target="_blank" rel="noopener noreferrer" className="social-link" aria-label="GitHub"><i className='bx bxl-github'></i></a>}
+                {profile?.linkedin_url && <a href={profile.linkedin_url} target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LinkedIn"><i className='bx bxl-linkedin'></i></a>}
               </div>
             </div>
           </div>
