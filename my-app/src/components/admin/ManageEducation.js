@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
+import toast from 'react-hot-toast';
 
 export default function ManageEducation() {
   const [educations, setEducations] = useState([]);
@@ -45,11 +46,12 @@ export default function ManageEducation() {
     setLoading(false);
 
     if (!error) {
+      toast.success(editingId ? "Education updated successfully!" : "Education added successfully!");
       resetForm();
       fetchEducations();
     } else {
       console.error("Error saving education", error);
-      alert("Error saving education: " + error.message);
+      toast.error("Error saving education: " + error.message);
     }
   };
 
@@ -74,58 +76,63 @@ export default function ManageEducation() {
 
   const deleteEducation = async (id) => {
     if(!window.confirm("Are you sure you want to delete this education?")) return;
-    await supabase.from('education').delete().eq('id', id);
-    fetchEducations();
+    const { error } = await supabase.from('education').delete().eq('id', id);
+    if (!error) {
+      toast.success("Education deleted successfully");
+      fetchEducations();
+    } else {
+      toast.error("Failed to delete education");
+    }
   };
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-      <h1>Manage Education</h1>
+    <div className="admin-container">
+      <h1 className="admin-header">Education</h1>
       
-      <div style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', marginBottom: '20px' }}>
-        <h3>{editingId ? 'Edit Education' : 'Add Education'}</h3>
-        <form onSubmit={saveEducation} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-          <div style={{ display: 'flex', gap: '15px' }}>
+      <div className="admin-card">
+        <h3 style={{ marginBottom: '1.5rem', marginTop: 0, color: '#0f172a' }}>{editingId ? 'Edit Education' : 'Add Education'}</h3>
+        <form onSubmit={saveEducation} className="admin-form">
+          <div className="admin-form-row">
             <input 
               value={degree} onChange={(e) => setDegree(e.target.value)} 
               placeholder="Degree/Certificate" required 
-              style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc', flex: 1 }}
+              className="admin-input"
             />
             <input 
               value={school} onChange={(e) => setSchool(e.target.value)} 
               placeholder="School/University" required 
-              style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc', flex: 1 }}
+              className="admin-input"
             />
           </div>
-          <div style={{ display: 'flex', gap: '15px' }}>
+          <div className="admin-form-row">
             <input 
               value={startYear} onChange={(e) => setStartYear(e.target.value)} 
               placeholder="Start Year (e.g. 2018)" required 
-              style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc', flex: 1 }}
+              className="admin-input"
             />
             <input 
               value={endYear} onChange={(e) => setEndYear(e.target.value)} 
               placeholder="End Year (e.g. 2022)" required 
-              style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc', flex: 1 }}
+              className="admin-input"
             />
           </div>
           <textarea 
             value={description} onChange={(e) => setDescription(e.target.value)} 
             placeholder="Description (Optional)" 
-            style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc', minHeight: '60px' }}
+            className="admin-input"
           />
           <div style={{ display: 'flex', gap: '10px' }}>
             <button 
               type="submit" 
               disabled={loading}
-              style={{ flex: 1, padding: '12px', background: '#333', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
+              className="admin-btn-primary" style={{ flex: 1 }}>
               {loading ? 'Saving...' : editingId ? 'Update Education' : 'Add Education'}
             </button>
             {editingId && (
               <button 
                 type="button" 
                 onClick={resetForm}
-                style={{ padding: '12px', background: '#ccc', color: '#333', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
+                className="admin-btn-secondary">
                 Cancel
               </button>
             )}
@@ -133,32 +140,32 @@ export default function ManageEducation() {
         </form>
       </div>
 
-      <div style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
-        <h3>Current Education</h3>
-        <ul style={{ listStyle: 'none', padding: 0 }}>
+      <div className="admin-card">
+        <h3 style={{ marginBottom: '1.5rem', marginTop: 0, color: '#0f172a' }}>Current Education</h3>
+        <div className="admin-list">
           {educations.map(edu => (
-            <li key={edu.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 0', borderBottom: '1px solid #eee' }}>
-              <div>
-                 <strong style={{ display: 'block', fontSize: '18px', marginBottom: '5px' }}>{edu.degree}</strong>
-                 <p style={{ margin: '0', color: '#444' }}>{edu.school} • {edu.start_year} - {edu.end_year}</p>
-                 {edu.description && <p style={{ margin: '5px 0 0 0', color: '#666', fontSize: '14px' }}>{edu.description}</p>}
+            <div key={edu.id} className="admin-list-item">
+              <div className="admin-list-item-content">
+                 <h3>{edu.degree}</h3>
+                 <p style={{ color: '#3b82f6', fontWeight: '500', marginBottom: '0.5rem' }}>{edu.school} • {edu.start_year} - {edu.end_year}</p>
+                 {edu.description && <p>{edu.description}</p>}
               </div>
-              <div style={{ display: 'flex', gap: '10px' }}>
+              <div className="admin-list-item-actions">
                 <button 
                    onClick={() => startEdit(edu)}
-                   style={{ padding: '8px 12px', background: '#007bff', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                   className="admin-btn-secondary">
                    Edit
                 </button>
                 <button 
                    onClick={() => deleteEducation(edu.id)}
-                   style={{ padding: '8px 12px', background: '#dc3545', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                   className="admin-btn-danger">
                    Delete
                 </button>
               </div>
-            </li>
+            </div>
           ))}
-          {educations.length === 0 && <p style={{ color: '#666' }}>No education listed yet.</p>}
-        </ul>
+          {educations.length === 0 && <p style={{ color: '#64748b' }}>No education listed yet.</p>}
+        </div>
       </div>
     </div>
   );

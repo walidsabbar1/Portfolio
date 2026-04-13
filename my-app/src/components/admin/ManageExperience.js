@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
+import toast from 'react-hot-toast';
 
 export default function ManageExperience() {
   const [experiences, setExperiences] = useState([]);
@@ -45,11 +46,12 @@ export default function ManageExperience() {
     setLoading(false);
 
     if (!error) {
+      toast.success(editingId ? "Experience updated successfully!" : "Experience added successfully!");
       resetForm();
       fetchExperiences();
     } else {
       console.error("Error saving experience", error);
-      alert("Error saving experience: " + error.message);
+      toast.error("Error saving experience: " + error.message);
     }
   };
 
@@ -74,58 +76,63 @@ export default function ManageExperience() {
 
   const deleteExperience = async (id) => {
     if(!window.confirm("Are you sure you want to delete this experience?")) return;
-    await supabase.from('experience').delete().eq('id', id);
-    fetchExperiences();
+    const { error } = await supabase.from('experience').delete().eq('id', id);
+    if (!error) {
+       toast.success("Experience deleted successfully");
+       fetchExperiences();
+    } else {
+       toast.error("Failed to delete experience");
+    }
   };
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-      <h1>Manage Experience</h1>
+    <div className="admin-container">
+      <h1 className="admin-header">Experience Timeline</h1>
       
-      <div style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', marginBottom: '20px' }}>
-        <h3>{editingId ? 'Edit Experience' : 'Add Experience'}</h3>
-        <form onSubmit={saveExperience} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-          <div style={{ display: 'flex', gap: '15px' }}>
+      <div className="admin-card">
+        <h3 style={{ marginBottom: '1.5rem', marginTop: 0, color: '#0f172a' }}>{editingId ? 'Edit Experience' : 'Add Experience'}</h3>
+        <form onSubmit={saveExperience} className="admin-form">
+          <div className="admin-form-row">
             <input 
               value={jobTitle} onChange={(e) => setJobTitle(e.target.value)} 
               placeholder="Job Title (e.g. Senior Developer)" required 
-              style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc', flex: 1 }}
+              className="admin-input"
             />
             <input 
               value={company} onChange={(e) => setCompany(e.target.value)} 
               placeholder="Company Name" required 
-              style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc', flex: 1 }}
+              className="admin-input"
             />
           </div>
-          <div style={{ display: 'flex', gap: '15px' }}>
+          <div className="admin-form-row">
             <input 
               value={startDate} onChange={(e) => setStartDate(e.target.value)} 
               placeholder="Start Date (e.g. Jan 2020)" required 
-              style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc', flex: 1 }}
+              className="admin-input"
             />
             <input 
               value={endDate} onChange={(e) => setEndDate(e.target.value)} 
               placeholder="End Date (e.g. Present)" required 
-              style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc', flex: 1 }}
+              className="admin-input"
             />
           </div>
           <textarea 
             value={description} onChange={(e) => setDescription(e.target.value)} 
             placeholder="Description of duties/achievements" 
-            style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc', minHeight: '80px' }}
+            className="admin-input"
           />
           <div style={{ display: 'flex', gap: '10px' }}>
             <button 
               type="submit" 
               disabled={loading}
-              style={{ flex: 1, padding: '12px', background: '#333', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
+              className="admin-btn-primary" style={{ flex: 1 }}>
               {loading ? 'Saving...' : editingId ? 'Update Experience' : 'Add Experience'}
             </button>
             {editingId && (
               <button 
                 type="button" 
                 onClick={resetForm}
-                style={{ padding: '12px', background: '#ccc', color: '#333', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
+                className="admin-btn-secondary">
                 Cancel
               </button>
             )}
@@ -133,32 +140,32 @@ export default function ManageExperience() {
         </form>
       </div>
 
-      <div style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
-        <h3>Experience Timeline</h3>
-        <ul style={{ listStyle: 'none', padding: 0 }}>
+      <div className="admin-card">
+        <h3 style={{ marginBottom: '1.5rem', marginTop: 0, color: '#0f172a' }}>Current Timeline</h3>
+        <div className="admin-list">
           {experiences.map(exp => (
-            <li key={exp.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 0', borderBottom: '1px solid #eee' }}>
-              <div>
-                 <strong style={{ display: 'block', fontSize: '18px', marginBottom: '5px' }}>{exp.job_title} at {exp.company}</strong>
-                 <small style={{ color: '#666', display: 'block' }}>{exp.start_date} - {exp.end_date}</small>
-                 <p style={{ margin: '5px 0 0 0', color: '#444', fontSize: '14px' }}>{exp.description}</p>
+            <div key={exp.id} className="admin-list-item">
+              <div className="admin-list-item-content">
+                 <h3>{exp.job_title} at {exp.company}</h3>
+                 <p style={{ color: '#3b82f6', fontWeight: '500', marginBottom: '0.5rem' }}>{exp.start_date} - {exp.end_date}</p>
+                 <p>{exp.description}</p>
               </div>
-              <div style={{ display: 'flex', gap: '10px' }}>
+              <div className="admin-list-item-actions">
                 <button 
                    onClick={() => startEdit(exp)}
-                   style={{ padding: '8px 12px', background: '#007bff', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                   className="admin-btn-secondary">
                    Edit
                 </button>
                 <button 
                    onClick={() => deleteExperience(exp.id)}
-                   style={{ padding: '8px 12px', background: '#dc3545', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                   className="admin-btn-danger">
                    Delete
                 </button>
               </div>
-            </li>
+            </div>
           ))}
-          {experiences.length === 0 && <p style={{ color: '#666' }}>No experience listed yet.</p>}
-        </ul>
+          {experiences.length === 0 && <p style={{ color: '#64748b' }}>No experience listed yet.</p>}
+        </div>
       </div>
     </div>
   );

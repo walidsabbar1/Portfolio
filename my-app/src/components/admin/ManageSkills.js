@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
+import toast from 'react-hot-toast';
 
 export default function ManageSkills() {
   const [skills, setSkills] = useState([]);
@@ -45,11 +46,12 @@ export default function ManageSkills() {
     setLoading(false);
 
     if (!error) {
+      toast.success(editingId ? "Skill updated successfully!" : "Skill added successfully!");
       resetForm();
       fetchSkills();
     } else {
       console.error("Error saving skill", error);
-      alert("Error saving skill: " + error.message);
+      toast.error("Error saving skill: " + error.message);
     }
   };
 
@@ -74,62 +76,67 @@ export default function ManageSkills() {
 
   const deleteSkill = async (id) => {
     if(!window.confirm("Are you sure you want to delete this skill?")) return;
-    await supabase.from('skills').delete().eq('id', id);
-    fetchSkills();
+    const { error } = await supabase.from('skills').delete().eq('id', id);
+    if (!error) {
+      toast.success("Skill deleted successfully");
+      fetchSkills();
+    } else {
+      toast.error("Failed to delete skill");
+    }
   };
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-      <h1>Manage Skills</h1>
+    <div className="admin-container">
+      <h1 className="admin-header">Skills</h1>
       
-      <div style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', marginBottom: '20px' }}>
-        <h3>{editingId ? 'Edit Skill' : 'Add New Skill'}</h3>
-        <form onSubmit={saveSkill} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+      <div className="admin-card">
+        <h3 style={{ marginBottom: '1.5rem', marginTop: 0, color: '#0f172a' }}>{editingId ? 'Edit Skill' : 'Add New Skill'}</h3>
+        <form onSubmit={saveSkill} className="admin-form">
           <input 
             value={name} onChange={(e) => setName(e.target.value)} 
             placeholder="Skill Name (e.g. React)" required 
-            style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc' }}
+            className="admin-input"
           />
           <input 
             value={category} onChange={(e) => setCategory(e.target.value)} 
             placeholder="Category (e.g. Frontend, Backend)" required 
-            style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc' }}
+            className="admin-input"
           />
-          <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
-            <label style={{ flex: 1 }}>
-              Level (1-10): {level}
+          <div className="admin-form-row" style={{ alignItems: 'center' }}>
+            <div className="admin-form-group">
+              <label className="admin-label">Level (1-10): {level}</label>
               <input 
                 type="range" min="1" max="10" 
                 value={level} onChange={(e) => setLevel(e.target.value)} 
-                style={{ width: '100%', marginTop: '5px' }}
+                style={{ width: '100%', cursor: 'pointer' }}
               />
-            </label>
-            <label style={{ flex: 1 }}>
-              Brand Color:
+            </div>
+            <div className="admin-form-group">
+              <label className="admin-label">Brand Color:</label>
               <input 
                 type="color" 
                 value={color} onChange={(e) => setColor(e.target.value)} 
-                style={{ width: '100%', height: '40px', marginTop: '5px', padding: '2px' }}
+                style={{ width: '100%', height: '40px', padding: '0', border: 'none', cursor: 'pointer', borderRadius: '8px' }}
               />
-            </label>
+            </div>
           </div>
           <input 
             value={iconName} onChange={(e) => setIconName(e.target.value)} 
             placeholder="React Icon Name (e.g. FaReact, SiPhp)" required 
-            style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc' }}
+            className="admin-input"
           />
           <div style={{ display: 'flex', gap: '10px' }}>
             <button 
               type="submit" 
               disabled={loading}
-              style={{ flex: 1, padding: '12px', background: '#333', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
+              className="admin-btn-primary" style={{ flex: 1 }}>
               {loading ? 'Saving...' : editingId ? 'Update Skill' : 'Add Skill'}
             </button>
             {editingId && (
               <button 
                 type="button" 
                 onClick={resetForm}
-                style={{ padding: '12px', background: '#ccc', color: '#333', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
+                className="admin-btn-secondary">
                 Cancel
               </button>
             )}
@@ -137,33 +144,37 @@ export default function ManageSkills() {
         </form>
       </div>
 
-      <div style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
-        <h3>Current Skills</h3>
-        <ul style={{ listStyle: 'none', padding: 0 }}>
+      <div className="admin-card">
+        <h3 style={{ marginBottom: '1.5rem', marginTop: 0, color: '#0f172a' }}>Current Skills</h3>
+        <div className="admin-list">
           {skills.map(skill => (
-            <li key={skill.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 0', borderBottom: '1px solid #eee' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                 <div style={{ width: '20px', height: '20px', backgroundColor: skill.color, borderRadius: '4px' }}></div>
-                 <strong style={{ fontSize: '18px' }}>{skill.name}</strong>
-                 <span style={{ color: '#666', background: '#f4f4f4', padding: '2px 8px', borderRadius: '12px', fontSize: '12px' }}>{skill.category}</span>
-                 <span style={{ color: '#888', fontSize: '12px' }}>Level: {skill.level}/10 ({skill.icon_name})</span>
+            <div key={skill.id} className="admin-list-item">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                 <div style={{ width: '24px', height: '24px', backgroundColor: skill.color, borderRadius: '6px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}></div>
+                 <div>
+                   <h3 style={{ margin: '0 0 0.2rem 0', color: '#0f172a', fontSize: '1.1rem' }}>{skill.name}</h3>
+                   <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                     <span style={{ color: '#475569', background: '#f1f5f9', padding: '2px 8px', borderRadius: '12px', fontSize: '12px', fontWeight: '500' }}>{skill.category}</span>
+                     <span style={{ color: '#64748b', fontSize: '12px' }}>Level: {skill.level}/10</span>
+                   </div>
+                 </div>
               </div>
-              <div style={{ display: 'flex', gap: '10px' }}>
+              <div className="admin-list-item-actions">
                 <button 
                    onClick={() => startEdit(skill)}
-                   style={{ padding: '8px 12px', background: '#007bff', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                   className="admin-btn-secondary">
                    Edit
                 </button>
                 <button 
                    onClick={() => deleteSkill(skill.id)}
-                   style={{ padding: '8px 12px', background: '#dc3545', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                   className="admin-btn-danger">
                    Delete
                 </button>
               </div>
-            </li>
+            </div>
           ))}
-          {skills.length === 0 && <p style={{ color: '#666' }}>No skills yet.</p>}
-        </ul>
+          {skills.length === 0 && <p style={{ color: '#64748b' }}>No skills yet.</p>}
+        </div>
       </div>
     </div>
   );

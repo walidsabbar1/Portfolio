@@ -1,32 +1,42 @@
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
+import { Toaster } from 'react-hot-toast';
+import './Admin.css';
 
 export default function AdminLayout() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate('/');
   };
 
+  const isActive = (path) => {
+    return location.pathname === path ? { background: '#f1f5f9', color: '#3b82f6', transform: 'translateX(5px)' } : {};
+  };
+
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: '#f4f4f4' }}>
+    <div className="admin-layout">
+      <Toaster position="top-right" toastOptions={{ duration: 3000, style: { background: '#363636', color: '#fff' } }} />
       {/* Sidebar */}
-      <aside style={{ width: '250px', background: '#333', color: 'white', padding: '1rem' }}>
+      <aside className="admin-sidebar">
         <h2>Admin Panel</h2>
-        <nav style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '20px' }}>
-          <Link to="/admin" style={{ color: 'white', textDecoration: 'none' }}>Dashboard</Link>
-          <Link to="/admin/profile" style={{ color: 'white', textDecoration: 'none' }}>Profile Settings</Link>
-          <Link to="/admin/projects" style={{ color: 'white', textDecoration: 'none' }}>Projects</Link>
-          <Link to="/admin/skills" style={{ color: 'white', textDecoration: 'none' }}>Skills</Link>
-          <Link to="/admin/experience" style={{ color: 'white', textDecoration: 'none' }}>Experience</Link>
-          <Link to="/admin/education" style={{ color: 'white', textDecoration: 'none' }}>Education</Link>
-          <button onClick={handleLogout} style={{ marginTop: '20px', cursor: 'pointer', padding: '10px', background: '#dc3545', color: 'white', border: 'none', borderRadius: '4px' }}>Log Out</button>
+        <nav className="admin-nav">
+          <Link to="/admin" className="admin-nav-link" style={isActive('/admin')}>Dashboard</Link>
+          <Link to="/admin/profile" className="admin-nav-link" style={isActive('/admin/profile')}>Profile Settings</Link>
+          <Link to="/admin/projects" className="admin-nav-link" style={isActive('/admin/projects')}>Projects</Link>
+          <Link to="/admin/skills" className="admin-nav-link" style={isActive('/admin/skills')}>Skills</Link>
+          <Link to="/admin/experience" className="admin-nav-link" style={isActive('/admin/experience')}>Experience</Link>
+          <Link to="/admin/education" className="admin-nav-link" style={isActive('/admin/education')}>Education</Link>
+          <button onClick={handleLogout} className="admin-logout-btn">
+            Log Out
+          </button>
         </nav>
       </aside>
 
       {/* Main Content Area */}
-      <main style={{ flex: 1, padding: '2rem', color: '#333' }}>
+      <main className="admin-main">
         <Outlet /> {/* This renders the specific admin pages */}
       </main>
     </div>

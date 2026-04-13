@@ -666,7 +666,7 @@ function AppContent() {
             <AdminLayout />
           </ProtectedRoute>
         }>
-          <Route index element={<div style={{padding: '20px'}}><h2>Admin Dashboard</h2><p>Welcome to the secure admin panel.</p></div>} />
+          <Route index element={<div className="admin-container"><h1 className="admin-header">Admin Dashboard</h1><div className="admin-card"><p style={{ color: '#475569', fontSize: '1.1rem', margin: 0 }}>Welcome to the secure admin panel. Choose an option from the sidebar to manage your portfolio content.</p></div></div>} />
           <Route path="projects" element={<ManageProjects />} />
           <Route path="skills" element={<ManageSkills />} />
           <Route path="experience" element={<ManageExperience />} />
