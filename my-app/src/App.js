@@ -1,6 +1,6 @@
 // App.js
 import { useState, useCallback, lazy, Suspense, useMemo, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, NavLink, Outlet } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { supabase } from './lib/supabase';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import { translations } from './utils/translations';
@@ -558,6 +558,38 @@ const PublicLayout = ({ menuOpen, setMenuOpen, user, onLogout }) => (
   </>
 );
 
+// Easter Egg Listener Component
+const EasterEggListener = () => {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    let keySequence = '';
+    const secretCode = 'admin';
+
+    const handleKeyDown = (e) => {
+      // Ignore input if user is typing in a form field
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
+
+      keySequence += e.key.toLowerCase();
+
+      // Log only the last N characters based on secret code length
+      if (keySequence.length > secretCode.length) {
+        keySequence = keySequence.slice(keySequence.length - secretCode.length);
+      }
+
+      if (keySequence === secretCode) {
+        navigate('/admin/login');
+        keySequence = ''; // Reset after triggering
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [navigate]);
+
+  return null;
+};
+
 // Main App component
 function AppContent() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -651,6 +683,7 @@ function AppContent() {
 
   return (
     <BrowserRouter>
+      <EasterEggListener />
       <Routes>
         {/* Public Routes Wrapped in PublicLayout */}
         <Route element={<PublicLayout menuOpen={menuOpen} setMenuOpen={setMenuOpen} user={user} onLogout={handleLogout} />}>
