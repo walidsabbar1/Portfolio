@@ -1,6 +1,7 @@
 // App.js
 import { useState, useCallback, lazy, Suspense, useMemo, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import { supabase } from './lib/supabase';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import { translations } from './utils/translations';
@@ -683,6 +684,7 @@ function AppContent() {
 
   return (
     <BrowserRouter>
+      <Analytics />
       <EasterEggListener />
       <Routes>
         {/* Public Routes Wrapped in PublicLayout */}
