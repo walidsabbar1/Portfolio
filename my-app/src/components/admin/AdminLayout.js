@@ -1,6 +1,7 @@
 import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
 import { Toaster } from 'react-hot-toast';
+import { Analytics } from "@vercel/analytics/react";
 import './Admin.css';
 
 export default function AdminLayout() {
@@ -19,6 +20,7 @@ export default function AdminLayout() {
   return (
     <div className="admin-layout">
       <Toaster position="top-right" toastOptions={{ duration: 3000, style: { background: '#363636', color: '#fff' } }} />
+      <Analytics />
       {/* Sidebar */}
       <aside className="admin-sidebar">
         <h2>Admin Panel</h2>
